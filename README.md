@@ -1,7 +1,10 @@
 # Grok Desk Paper
 
-Web app de paper trading multi-mercado.
+App web. Abrela en el navegador, no hace falta instalar ni ejecutar nada en el PC.
 
-Abre `index.html` en GitHub Pages o Vercel.
+- Login con sesion guardada en el navegador
+- Bot paper cada 10 minutos
+- Crypto, acciones, FX y memecoins
+- Solo paper. No envia ordenes reales.
 
 Demo: `trader` / `desk2026`

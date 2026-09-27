@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Grok Desk Paper</title>
+  <style>
+    :root{--bg:#081018;--card:#121c2b;--line:#223044;--txt:#e8f0fa;--dim:#8ea0b8;--acc:#3ee0b0;--red:#ff6b7d}
+    *{box-sizing:border-box}body{margin:0;font-family:Inter,Segoe UI,sans-serif;background:radial-gradient(900px 500px at 8% -8%,#17324a,var(--bg));color:var(--txt)}
+    .hidden{display:none!important}header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#0b141fd9}
+    .brand{font-weight:800;letter-spacing:.04em}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+    .auth{min-height:100vh;display:grid;place-items:center;padding:24px}.auth .card{width:min(420px,100%)}
+    label{display:block;color:var(--dim);font-size:12px;margin:10px 0 6px}input{width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:#0b1320;color:var(--txt)}
+    .btn{border:0;border-radius:10px;padding:10px 14px;background:var(--acc);color:#06231a;font-weight:700;cursor:pointer}
+    .btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}.btn.danger{background:var(--red);color:#2a0b10}
+    .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.err{color:var(--red);min-height:1.2em}
+    .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;padding:16px 20px}
+    .k{color:var(--dim);font-size:11px;text-transform:uppercase}.v{font-size:20px;margin-top:4px}
+    .wrap{padding:0 20px 24px;display:grid;grid-template-columns:1.4fr .8fr;gap:12px}
+    table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:7px 5px;border-bottom:1px solid var(--line);text-align:left}
+    .up{color:var(--acc)}.down{color:var(--red)}.tab{padding:6px 10px;border-radius:999px;border:1px solid var(--line);color:var(--dim);cursor:pointer}
+    .tab.on{background:var(--acc);color:#06231a;border-color:var(--acc)}
+    @media(max-width:900px){.kpis,.wrap{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<section id="auth" class="auth">
+  <form class="card" id="form">
+    <h1>Grok Desk Paper</h1>
+    <p style="color:var(--dim)">Web. Sesión guardada en este navegador. Bot paper cada 10 min. Crypto, acciones, FX y memes.</p>
+    <label>Usuario</label><input name="user" value="trader" autocomplete="username">
+    <label>Password</label><input name="pass" type="password" value="desk2026" autocomplete="current-password">
+    <label><input type="checkbox" name="remember" checked> Recordar sesión</label>
+    <div class="row" style="margin-top:12px">
+      <button class="btn" type="submit">Entrar</button>
+      <button class="btn ghost" type="button" id="reg">Crear cuenta</button>
+    </div>
+    <div class="err" id="err"></div>
+    <p style="color:var(--dim);font-size:12px">Cuenta demo: trader / desk2026. Solo paper, sin dinero real.</p>
+  </form>
+</section>
+<section id="app" class="hidden">
+  <header>
+    <div class="brand">GROK DESK PAPER</div>
+    <div class="row">
+      <span id="who" style="color:var(--dim)"></span>
+      <button class="btn ghost" id="run">Correr ciclo</button>
+      <button class="btn ghost" id="tog">Pausar</button>
+      <button class="btn danger" id="out">Salir</button>
+    </div>
+  </header>
+  <div class="kpis" id="kpis"></div>
+  <div class="wrap">
+    <div class="card">
+      <div class="row" id="tabs" style="margin-bottom:10px"></div>
+      <table><thead><tr><th>Activo</th><th>Precio</th><th>10 min</th><th>24h</th></tr></thead><tbody id="q"></tbody></table>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:12px">
+        <div class="k">Posiciones</div>
+        <table><thead><tr><th>Activo</th><th>Entrada</th><th>P&L</th></tr></thead><tbody id="p"></tbody></table>
+      </div>
+      <div class="card">
+        <div class="k">Operaciones</div>
+        <table><thead><tr><th>Side</th><th>Activo</th><th>Nota</th></tr></thead><tbody id="t"></tbody></table>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="app.js"></script>
+</body>
+</html>

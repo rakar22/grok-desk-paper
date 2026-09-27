@@ -1,2 +1,7 @@
-# grok-desk-paper
-Grok Desk Paper — web multi-market paper trading
+# Grok Desk Paper
+
+Web app de paper trading multi-mercado.
+
+Abre `index.html` en GitHub Pages o Vercel.
+
+Demo: `trader` / `desk2026`

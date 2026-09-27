@@ -1,10 +1,7 @@
-# Grok Desk Paper
+# Alfa
 
-App web. Abrela en el navegador, no hace falta instalar ni ejecutar nada en el PC.
+App web paper en Solana.
 
-- Login con sesion guardada en el navegador
-- Bot paper cada 10 minutos
-- Crypto, acciones, FX y memecoins
-- Solo paper. No envia ordenes reales.
+https://grok-desk-paper.vercel.app/
 
-Demo: `trader` / `desk2026`
+Demo: trader / desk2026

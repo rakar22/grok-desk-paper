@@ -27,22 +27,50 @@ function makeSig(){
   var b=init();
   var p=PAIRS[Math.floor(Math.random()*PAIRS.length)];
   var amt=Math.max(0.5,Math.round(b.capital*0.08*100)/100);
-  var txt="DEDUST\nSwap: "+p.from+" -> "+p.to+"\nCantidad: "+amt+" "+p.from+"\nBot: @dedustBot\nNota: senal Alfa paper. No es consejo. Firma tu.";
-  var s={t:Date.now(),from:p.from,to:p.to,amt:amt,txt:txt};
+  var sl=8;
+  var tp=12;
+  var hold=25;
+  var txt=[
+    "DEDUST @dedustBot",
+    "ENTRADA: "+p.from+" -> "+p.to,
+    "CANTIDAD: "+amt+" "+p.from,
+    "STOP LOSS: -"+sl+"%  (cierra ya)",
+    "TAKE PROFIT: +"+tp+"%  (cierra ya)",
+    "CIERRE TIEMPO: "+hold+" min si no llega TP/SL",
+    "CIERRE: swap inverso "+p.to+" -> "+p.from,
+    "Alfa no firma. Senal paper."
+  ].join("\n");
+  var s={t:Date.now(),from:p.from,to:p.to,amt:amt,sl:sl,tp:tp,hold:hold,txt:txt,status:"open"};
   b.signals.unshift(s);b.signals=b.signals.slice(0,20);save(b);return s;
 }
+function expireSigs(){
+  var b=init();
+  var now=Date.now();
+  b.signals.forEach(function(s){
+    if(s.status==="open" && now-s.t>25*60*1000)s.status="timeout-cierra";
+  });
+  save(b);
+}
 function paintSig(){
+  expireSigs();
   var b=init();
   var now=document.getElementById("sigNow");
   var list=document.getElementById("sigList");
   var s=b.signals[0];
   if(now){
     if(!s)now.innerHTML="<p class='hintline'>Pulsa Nueva señal</p>";
-    else now.innerHTML="<b>"+s.from+" → "+s.to+"</b><p>"+s.amt+" "+s.from+"</p><pre style='white-space:pre-wrap;font-size:13px'>"+s.txt+"</pre><button type='button' class='cta' id='copySig'>Copiar</button>";
+    else now.innerHTML="<b>"+s.from+" → "+s.to+"</b>"+
+      "<p>"+s.amt+" "+s.from+"</p>"+
+      "<p>SL -"+s.sl+"% · TP +"+s.tp+"% · "+s.hold+" min</p>"+
+      "<p class='hintline'>"+(s.status||"open")+"</p>"+
+      "<pre style='white-space:pre-wrap;font-size:13px'>"+s.txt+"</pre>"+
+      "<button type='button' class='cta' id='copySig'>Copiar</button>";
     var c=document.getElementById("copySig");
     if(c)c.onclick=function(){navigator.clipboard.writeText(s.txt).then(function(){c.textContent="Copiado"})};
   }
-  if(list)list.innerHTML=b.signals.map(function(x){return "<div class='token'><b>"+x.from+"→"+x.to+"</b><span>"+x.amt+"</span></div>"}).join("");
+  if(list)list.innerHTML=b.signals.map(function(x){
+    return "<div class='token'><b>"+x.from+"→"+x.to+"</b><span>SL -"+x.sl+"% / TP +"+x.tp+"% · "+x.status+"</span></div>";
+  }).join("");
 }
 function paint(){
   var b=init();
@@ -73,8 +101,16 @@ function cycle(){
   var tok=["TON","USDT","NOT","DOGS"];
   var sym=tok[Math.floor(Math.random()*tok.length)];
   var px=0.1+Math.random()*2;
-  if(b.cash>=ticket){b.cash-=ticket;b.pos.push({sym:sym,qty:ticket/px,px:px});b.bot.buys++;b.log.unshift({side:"BUY",sym:sym,notional:ticket});var lb=document.getElementById("lastBuy");if(lb)lb.textContent=sym}
-  if(b.pos.length){var p=b.pos.splice(0,1)[0];var exit=p.qty*p.px*(0.97+Math.random()*0.08);b.cash+=exit;b.bot.sells++;var ls=document.getElementById("lastSell");if(ls)ls.textContent=p.sym}
+  if(b.cash>=ticket){b.cash-=ticket;b.pos.push({sym:sym,qty:ticket/px,px:px,sl:px*0.92,tp:px*1.12});b.bot.buys++;var lb=document.getElementById("lastBuy");if(lb)lb.textContent=sym}
+  b.pos=b.pos.filter(function(p){
+    var now=p.px*(0.94+Math.random()*0.14);
+    if(now<=p.sl||now>=p.tp){
+      b.cash+=p.qty*now;b.bot.sells++;
+      var ls=document.getElementById("lastSell");if(ls)ls.textContent=p.sym+(now<=p.sl?" SL":" TP");
+      return false;
+    }
+    return true;
+  });
   b.bot.runs++;
   if(b.bot.runs%3===0)makeSig();
   save(b);paint();

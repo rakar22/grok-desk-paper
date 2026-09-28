@@ -6,9 +6,9 @@
 <section id="app" class="screen app">
 <nav class="tabbar topnav">
 <button class="on" data-pane="market" type="button">Mercado</button>
+<button data-pane="sig" type="button">Señales</button>
 <button data-pane="book" type="button">Libro</button>
 <button data-pane="live" type="button">Wallet</button>
-<button data-pane="log" type="button">Tape</button>
 </nav>
 <main class="scroll">
 <section class="pane on" data-pane="market">
@@ -16,11 +16,17 @@
 <label class="capbox"><span>Capital</span><div class="money big"><b>€</b><input id="capHome" type="number" min="0.5" step="0.5" inputmode="decimal"></div></label>
 <div class="presets"><button type="button" class="chip" data-cap="2">2</button><button type="button" class="chip" data-cap="10">10</button><button type="button" class="chip" data-cap="50">50</button><button type="button" class="chip" data-cap="100">100</button></div>
 <div class="startrow"><button type="button" id="powerBtn" class="core off"><span class="core-label" id="powerLabel">START</span></button><button type="button" id="refresh" class="ghost scanbtn">Actualizar</button></div>
-<p class="hintline" id="powerHint">START = paper. No gasta TON.</p></div>
-<div class="liveboard"><div class="livehead"><span class="pulse" id="pulse"></span><span id="liveClock">-</span></div>
-<div class="livestats"><div class="ls buy"><span>Compras</span><b id="statBuys">0</b><small id="lastBuy">-</small></div><div class="ls sell"><span>Ventas</span><b id="statSells">0</b><small id="lastSell">-</small></div></div>
+<p class="hintline">START = paper. Señales = tú en DeDust.</p></div>
+<div class="liveboard"><div class="livestats"><div class="ls buy"><span>Compras</span><b id="statBuys">0</b><small id="lastBuy">-</small></div><div class="ls sell"><span>Ventas</span><b id="statSells">0</b><small id="lastSell">-</small></div></div>
 <div class="livetick" id="liveTick">Apagado</div></div>
-<div class="list" id="auditList"></div>
+</section>
+<section class="pane" data-pane="sig">
+<h2>Señales DeDust</h2>
+<p class="hintline">Copia y haz el swap en @dedustBot. Alfa no firma.</p>
+<div class="startrow" style="margin:12px 0"><button type="button" id="newSig" class="cta">Nueva señal</button>
+<a class="cta" href="https://t.me/dedustBot" target="_blank" rel="noopener">Abrir DeDust</a></div>
+<div class="card pad" id="sigNow"></div>
+<div class="list" id="sigList"></div>
 </section>
 <section class="pane" data-pane="book">
 <div class="stats"><div><span>Caja</span><b id="cash">-</b></div><div><span>Abiertas</span><b id="npos">0</b></div><div><span>Ciclos</span><b id="runs">0</b></div></div>
@@ -32,9 +38,8 @@
 <div class="card pad"><p class="hintline" id="tonStatus">Direccion publica</p><div id="tonConnectBtn"></div>
 <button type="button" class="cta" id="connectTon">Conectar</button>
 <textarea id="tonPk" class="pkbox" rows="3" placeholder="EQ / UQ"></textarea>
-<div class="row"><span>TON</span><span id="tonAddr">-</span></div><div class="err" id="tonErr"></div></div>
+<div class="row"><span>TON</span><span id="tonAddr">-</span></div></div>
 </section>
-<section class="pane" data-pane="log"><div class="list" id="log"></div></section>
 </main></section>
 <script src="app.js"></script><script src="patch.js"></script><script src="research.js"></script><script src="wallet.js"></script><script src="telegram.js"></script><script src="engine.js"></script>
 </body></html>

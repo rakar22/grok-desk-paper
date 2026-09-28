@@ -1,7 +1,8 @@
-# Alfa
+# Alfa desk
+Paper web. LIVE locked in the browser.
 
-Paper desk en Solana. Login, capital editable, un interruptor.
+Connect Phantom (pubkey only). Never paste a private key here.
 
-Demo: trader / desk2026
+Telegram: BotFather token + chat id for alerts, not Telegram Wallet.
 
-Solo paper. No ejecuta órdenes reales.
+Server automation: copy .env.example to .env on a machine you control. HOT_WALLET_SECRET stays off the web app.

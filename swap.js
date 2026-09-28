@@ -1,26 +1,35 @@
 (function(){
+var MAP={
+  USDT:{addr:"EQCxE6mUtQJKFnGfaROTKOt1lZbDiiX1kCixRv7Nw2Id_sDs"},
+  STON:{addr:"EQA2kCVNwVsil2EM2mB0SkXytxCqQjS4mttjDpnXmwG9T6bO"},
+  NOT:{addr:"EQAvlWFDxGF2lXm67y4yzC17wYKD9A0guwPkMs1gOsM__NOT"},
+  MAJOR:{addr:"EQCuPmQE4wUWaha1YTGoi63xTOIKw-e65iXK6hblZJOR"},
+  tsTON:{addr:"EQC98_qAmNEptUtPc7W6xdHh_ZHrBUFpw5Ft_IzNU20QAJav"}
+};
 function open(url){
   if(window.alfaOpen)return window.alfaOpen(url);
   var tg=window.Telegram&&window.Telegram.WebApp;
-  if(tg&&tg.openLink)tg.openLink(url);
+  if(tg&&url.indexOf("t.me/")!==-1&&tg.openTelegramLink)tg.openTelegramLink(url);
+  else if(tg&&tg.openLink)tg.openLink(url);
   else window.open(url,"_blank");
 }
-function amt(){return Math.max(0.05,Number(document.getElementById("swapAmt").value)||0.2)}
-function to(){return (document.getElementById("swapTo")||{}).value||"USDT"}
-function from(){return (document.getElementById("swapFrom")||{}).value||"TON"}
-function hint(){
-  var h=document.getElementById("swapHint");
-  if(h)h.textContent=amt()+" "+from()+" → "+to()+"  |  firma en el DEX";
+function tok(){return (document.getElementById("swapTo")||{}).value||"USDT"}
+function urls(sym){
+  var m=MAP[sym]||MAP.USDT;
+  return {
+    ston:"https://app.ston.fi/swap?ft=TON&tt="+encodeURIComponent(m.addr),
+    dedust:"https://dedust.io/swap/TON/"+m.addr,
+    x1000:"https://x1000.finance/?token="+encodeURIComponent(m.addr)
+  };
 }
+window.alfaTokenUrls=urls;
 function bind(){
-  ["swapAmt","swapFrom","swapTo"].forEach(function(id){var e=document.getElementById(id);if(e)e.onchange=hint});
   var st=document.getElementById("swapSton");
-  if(st)st.onclick=function(){open("https://app.ston.fi/swap?chartVisible=false&ft="+encodeURIComponent(from())+"&tt="+encodeURIComponent(to()))};
+  if(st)st.onclick=function(){open(urls(tok()).ston)};
   var dd=document.getElementById("swapDedust");
-  if(dd)dd.onclick=function(){open("https://dedust.io/swap")};
+  if(dd)dd.onclick=function(){open(urls(tok()).dedust)};
   var x=document.getElementById("swapX1000");
-  if(x)x.onclick=function(){open("https://x1000.finance")};
-  hint();
+  if(x)x.onclick=function(){open(urls(tok()).x1000)};
 }
 bind();
 })();

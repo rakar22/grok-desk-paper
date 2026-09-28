@@ -1,33 +1,27 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/><meta name="theme-color" content="#02010a"/><title>Alfa</title><link rel="stylesheet" href="styles.css"/></head>
+<html lang="es"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Alfa TimesFM Jev</title><link rel="stylesheet" href="styles.css"/></head>
 <body><div class="fx"></div>
-<section id="auth" class="screen auth"><div class="brand"><div class="logo">α</div><h1>ALFA</h1><p>PAPER · 24 OPS / MIN</p></div>
+<section id="auth" class="screen auth"><div class="brand"><div class="logo">a</div><h1>ALFA</h1><p>TIMESFM + JEV · PAPER</p></div>
 <form id="form" class="card"><label>Usuario</label><input name="user" value="trader"><label>Password</label><input name="pass" type="password" value="desk2026"></form>
 <button class="cta" id="go" type="button">Entrar</button><button class="ghost" id="reg" type="button">Crear cuenta</button><div class="err" id="err"></div></section>
 <section id="app" class="screen app hidden">
-<header class="topbar"><div><div class="eyebrow" id="liveDot">STANDBY</div><strong>ALFA</strong></div><button type="button" id="refresh" class="pillbtn">↻ Scan</button></header>
-<main class="scroll"><div class="hero"><span class="k">Patrimonio paper</span><div class="eq" id="equity">—</div>
+<header class="topbar"><div><div class="eyebrow" id="liveDot">STANDBY</div><strong>ALFA DESK</strong></div><button type="button" id="refresh" class="pillbtn">Scan</button></header>
+<main class="scroll"><div class="hero"><span class="k">Patrimonio paper</span><div class="eq" id="equity">-</div>
 <label class="capbox"><span>Capital inicial</span><div class="money big"><b>$</b><input id="capHome" type="number" min="100" step="100"></div></label>
-<div class="presets">
-<button type="button" class="chip" data-cap="1000">1k</button>
-<button type="button" class="chip" data-cap="5000">5k</button>
-<button type="button" class="chip" data-cap="10000">10k</button>
-<button type="button" class="chip" data-cap="25000">25k</button>
-<button type="button" class="chip" data-cap="50000">50k</button>
-</div>
-<p class="mandate">Mandato: compra momentum · vende en verde</p>
+<div class="presets"><button type="button" class="chip" data-cap="1000">1k</button><button type="button" class="chip" data-cap="5000">5k</button><button type="button" class="chip" data-cap="10000">10k</button><button type="button" class="chip" data-cap="25000">25k</button><button type="button" class="chip" data-cap="50000">50k</button></div>
+<div class="engines"><div class="eng">TimesFM forecast</div><div class="eng">Jev decide</div></div>
 <div class="pills"><span id="statusPill">OFF</span><span id="flowPill">24 ops / min</span></div>
 <button type="button" id="powerBtn" class="core off"><span class="core-ring"></span><span class="core-label" id="powerLabel">START</span></button>
-<p class="hintline" id="powerHint">START enciende · STOP limpia todo</p></div>
-<div class="liveboard"><div class="livehead"><span class="pulse" id="pulse"></span><span id="liveClock">—</span></div>
-<div class="livestats"><div class="ls buy"><span>Compras</span><b id="statBuys">0</b><small id="lastBuy">—</small></div><div class="ls sell"><span>Ventas</span><b id="statSells">0</b><small id="lastSell">—</small></div></div>
+<p class="hintline" id="powerHint">START oro + cripto + memes. STOP limpia.</p></div>
+<div class="liveboard"><div class="livehead"><span class="pulse" id="pulse"></span><span id="liveClock">-</span></div>
+<div class="livestats"><div class="ls buy"><span>Compras</span><b id="statBuys">0</b><small id="lastBuy">-</small></div><div class="ls sell"><span>Ventas</span><b id="statSells">0</b><small id="lastSell">-</small></div></div>
 <div class="barwrap"><div class="bar buybar" id="buyBar"></div><div class="bar sellbar" id="sellBar"></div></div>
 <div class="livetick" id="liveTick">Bot apagado</div></div>
 <div class="charts"><div class="chartbox"><div class="ctitle">Patrimonio</div><canvas id="eqChart" width="360" height="140"></canvas></div><div class="chartbox"><div class="ctitle">Flujo</div><canvas id="flowChart" width="360" height="140"></canvas></div></div>
-<section class="pane on" data-pane="market"><div class="hrow"><h2>Mercado</h2><button type="button" id="refresh2" class="pillbtn">Scan</button></div><div class="list" id="auditList"></div><p class="foot" id="auditMeta"></p></section>
-<section class="pane" data-pane="book"><div class="stats"><div><span>Caja</span><b id="cash">—</b></div><div><span>Abiertas</span><b id="npos">0</b></div><div><span>Ciclos</span><b id="runs">0</b></div></div>
+<section class="pane on" data-pane="market"><div class="hrow"><h2>Mercados</h2><button type="button" id="refresh2" class="pillbtn">Scan</button></div><div class="list" id="auditList"></div><p class="foot" id="auditMeta"></p></section>
+<section class="pane" data-pane="book"><div class="stats"><div><span>Caja</span><b id="cash">-</b></div><div><span>Abiertas</span><b id="npos">0</b></div><div><span>Ciclos</span><b id="runs">0</b></div></div>
 <h2>Posiciones</h2><div class="list" id="pos"></div>
-<div class="card pad"><div class="row"><span>Capital</span><div class="money"><b>$</b><input id="cap" type="number" min="100" step="50"></div></div><div class="row muted"><span>Ticket</span><span id="ticket">—</span></div></div></section>
-<section class="pane" data-pane="log"><h2>Actividad</h2><div class="list" id="log"></div></section></main>
+<div class="card pad"><div class="row"><span>Capital</span><div class="money"><b>$</b><input id="cap" type="number" min="100" step="50"></div></div><div class="row muted"><span>Ticket</span><span id="ticket">-</span></div></div></section>
+<section class="pane" data-pane="log"><h2>Tape</h2><div class="list" id="log"></div></section></main>
 <nav class="tabbar"><button class="on" data-pane="market" type="button">Mercado</button><button data-pane="book" type="button">Libro</button><button data-pane="log" type="button">Tape</button><button id="out" type="button">Salir</button></nav>
-</section><script src="app.js"></script><script src="cap.js"></script></body></html>
+</section><script src="app.js"></script></body></html>

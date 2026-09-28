@@ -10,16 +10,18 @@
 <button data-pane="book" type="button">Libro</button>
 <button data-pane="live" type="button">Wallet</button>
 <button data-pane="log" type="button">Tape</button>
-<button id="refresh" type="button">Scan</button>
 <button id="out" type="button">Salir</button>
 </nav>
 <main class="scroll">
 <div class="hero"><div class="eyebrow" id="liveDot">STANDBY</div><span class="k">Patrimonio paper</span><div class="eq" id="equity">-</div>
-<label class="capbox"><span>Min 2 €</span><div class="money big"><b>€</b><input id="capHome" type="number" min="2" step="1"></div></label>
+<label class="capbox"><span>Capital</span><div class="money big"><b>€</b><input id="capHome" type="number" min="0.5" step="0.5"></div></label>
 <div class="presets"><button type="button" class="chip" data-cap="2">2</button><button type="button" class="chip" data-cap="10">10</button><button type="button" class="chip" data-cap="50">50</button><button type="button" class="chip" data-cap="100">100</button><button type="button" class="chip" data-cap="1000">1k</button></div>
 <div class="pills"><span id="statusPill">OFF</span><span id="flowPill">TON</span></div>
+<div class="startrow">
 <button type="button" id="powerBtn" class="core off"><span class="core-label" id="powerLabel">START</span></button>
-<p class="hintline" id="powerHint">Desde 2 € paper TON</p></div>
+<button type="button" id="refresh" class="ghost scanbtn">Actualizar</button>
+</div>
+<p class="hintline" id="powerHint">El ticket se adapta al capital</p></div>
 <div class="liveboard"><div class="livehead"><span class="pulse" id="pulse"></span><span id="liveClock">-</span></div>
 <div class="livestats"><div class="ls buy"><span>Compras</span><b id="statBuys">0</b><small id="lastBuy">-</small></div><div class="ls sell"><span>Ventas</span><b id="statSells">0</b><small id="lastSell">-</small></div></div>
 <div class="barwrap"><div class="bar buybar" id="buyBar"></div><div class="bar sellbar" id="sellBar"></div></div>
@@ -33,12 +35,12 @@
 <button type="button" class="segbtn" data-filter="game">Games</button>
 <button type="button" class="segbtn" data-filter="stable">Stable</button>
 </div>
-<div class="hrow"><h2>Mercado TON</h2><button type="button" id="refresh2" class="pillbtn">Scan</button></div>
+<div class="hrow"><h2>Mercado TON</h2></div>
 <div class="list" id="auditList"></div><p class="foot" id="auditMeta"></p></section>
 <section class="pane" data-pane="book">
 <div class="stats"><div><span>Caja</span><b id="cash">-</b></div><div><span>Abiertas</span><b id="npos">0</b></div><div><span>Ciclos</span><b id="runs">0</b></div></div>
 <h2>Posiciones</h2><div class="list" id="pos"></div>
-<div class="card pad"><div class="row"><span>Capital min 2</span><div class="money"><b>€</b><input id="cap" type="number" min="2" step="1"></div></div><div class="row muted"><span>Ticket</span><span id="ticket">-</span></div></div></section>
+<div class="card pad"><div class="row"><span>Capital</span><div class="money"><b>€</b><input id="cap" type="number" min="0.5" step="0.5"></div></div><div class="row muted"><span>Ticket</span><span id="ticket">-</span></div></div></section>
 <section class="pane" data-pane="live"><h2>Telegram Wallet</h2>
 <div class="card pad">
 <p class="hintline" id="tonStatus">Direccion publica TON</p>
@@ -47,7 +49,6 @@
 <div class="row"><span>TON</span><span id="tonAddr">-</span></div>
 <div class="err" id="tonErr"></div></div>
 <div class="card pad">
-<div class="row"><span>Max ticket</span><input id="liveTicket" type="number" min="2" value="5"></div>
 <button type="button" class="ghost" id="armLive">LIVE bloqueado</button>
 <div class="err" id="liveErr"></div></div>
 <div class="card pad"><h2>Avisos</h2>

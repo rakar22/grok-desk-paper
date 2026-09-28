@@ -2,7 +2,7 @@
 <html lang="es"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/><meta name="apple-mobile-web-app-capable" content="yes"/><title>Alfa TON</title><link rel="stylesheet" href="styles.css"/><script src="https://telegram.org/js/telegram-web-app.js"></script></head>
 <body>
 <section id="auth" class="screen auth"><div class="brand"><div class="logo">A</div><h1>ALFA</h1><p>TON paper</p></div>
-<form id="form" class="card"><label>Usuario</label><input name="user" value="trader"><label>Password</label><input name="pass" type="password" value="desk2026"></form>
+<form id="form" class="card"><label>Usuario</label><input name="user" value="trader" autocomplete="username"><label>Password</label><input name="pass" type="password" value="desk2026" autocomplete="current-password"></form>
 <button class="cta" id="go" type="button">Entrar</button><button class="ghost" id="reg" type="button">Crear cuenta</button><div class="err" id="err"></div></section>
 <section id="app" class="screen app hidden">
 <header class="topbar"><div><div class="eyebrow" id="liveDot">STANDBY</div><strong>Alfa TON</strong></div><button type="button" id="refresh" class="pillbtn">Actualizar</button></header>
@@ -10,34 +10,34 @@
 <div class="hero"><span class="k">Patrimonio TON paper</span><div class="eq" id="equity">-</div>
 <label class="capbox"><span>Capital</span><div class="money big"><b>$</b><input id="capHome" type="number" min="100" step="100"></div></label>
 <div class="presets"><button type="button" class="chip" data-cap="1000">1k</button><button type="button" class="chip" data-cap="5000">5k</button><button type="button" class="chip" data-cap="10000">10k</button><button type="button" class="chip" data-cap="25000">25k</button></div>
-<div class="engines"><div class="eng">The Open Network</div><div class="eng">Vibe</div><div class="eng">Tauric</div></div>
+<div class="engines"><div class="eng">TON</div><div class="eng">Vibe</div><div class="eng">Tauric</div></div>
 <div class="pills"><span id="statusPill">OFF</span><span id="flowPill">24 / min</span></div>
 <button type="button" id="powerBtn" class="core off"><span class="core-label" id="powerLabel">START</span></button>
 <p class="hintline" id="powerHint">START jettons TON</p></div>
-<div class="liveboard"><div class="livehead"><span id="liveClock">-</span></div>
+<div class="liveboard"><div class="livehead"><span class="pulse" id="pulse"></span><span id="liveClock">-</span></div>
 <div class="livestats"><div class="ls buy"><span>Compras</span><b id="statBuys">0</b><small id="lastBuy">-</small></div><div class="ls sell"><span>Ventas</span><b id="statSells">0</b><small id="lastSell">-</small></div></div>
 <div class="barwrap"><div class="bar buybar" id="buyBar"></div><div class="bar sellbar" id="sellBar"></div></div>
 <div class="livetick" id="liveTick">TON apagado</div></div>
 <div class="charts"><div class="chartbox"><div class="ctitle">Patrimonio</div><canvas id="eqChart" width="360" height="140"></canvas></div><div class="chartbox"><div class="ctitle">Flujo</div><canvas id="flowChart" width="360" height="140"></canvas></div></div>
 <section class="pane on" data-pane="market">
-<div class="seg" role="tablist">
+<div class="seg">
 <button type="button" class="segbtn on" data-filter="all">Todos</button>
-<button type="button" class="segbtn" data-filter="ton">TON</button>
 <button type="button" class="segbtn" data-filter="meme">Memes</button>
 <button type="button" class="segbtn" data-filter="defi">DeFi</button>
 <button type="button" class="segbtn" data-filter="game">Games</button>
+<button type="button" class="segbtn" data-filter="stable">Stable</button>
 </div>
 <div class="hrow"><h2>Mercado TON</h2><button type="button" id="refresh2" class="pillbtn">Scan</button></div>
 <div class="list" id="auditList"></div><p class="foot" id="auditMeta"></p></section>
-<section class="pane" data-pane="book"><div class="stats"><div><span>Caja</span><b id="cash">-</b></div><div><span>Abiertas</span><b id="npos">0</b></div><div class="stats"><div><span>Ciclos</span><b id="runs">0</b></div></div></div>
+<section class="pane" data-pane="book">
+<div class="stats"><div><span>Caja</span><b id="cash">-</b></div><div><span>Abiertas</span><b id="npos">0</b></div><div><span>Ciclos</span><b id="runs">0</b></div></div>
 <h2>Posiciones</h2><div class="list" id="pos"></div>
 <div class="card pad"><div class="row"><span>Capital</span><div class="money"><b>$</b><input id="cap" type="number" min="100" step="50"></div></div><div class="row muted"><span>Ticket</span><span id="ticket">-</span></div></div></section>
 <section class="pane" data-pane="live"><h2>Telegram Wallet</h2>
 <div class="card pad">
-<p class="hintline" id="tonStatus">Red TON · direccion publica</p>
+<p class="hintline" id="tonStatus">Red TON · solo direccion publica</p>
 <textarea id="tonPk" class="pkbox" rows="2" placeholder="EQ... o UQ..."></textarea>
-<button type="button" class="cta" id="connectTon">Conectar Telegram Wallet</button>
-<button type="button" class="ghost" id="saveTon">Guardar direccion TON</button>
+<button type="button" class="cta" id="connectTon">Guardar direccion TON</button>
 <div class="row"><span>TON</span><span id="tonAddr">-</span></div>
 <div class="err" id="tonErr"></div>
 </div>
@@ -64,24 +64,4 @@
 </nav>
 </section>
 <script src="app.js"></script><script src="research.js"></script><script src="wallet.js"></script><script src="telegram.js"></script>
-<script>
-(function(){
-var f="all";
-document.querySelectorAll(".segbtn").forEach(function(btn){
-  btn.onclick=function(){
-    f=btn.getAttribute("data-filter");
-    document.querySelectorAll(".segbtn").forEach(function(x){x.classList.toggle("on",x===btn)});
-    document.querySelectorAll("#auditList .token").forEach(function(el){
-      var tag=(el.querySelector(".tag")||{}).textContent||"";
-      var ok=f==="all"||tag.indexOf(f)!==-1||(f==="ton"&&tag.indexOf("TON")!==-1);
-      if(f==="ton")ok=true;
-      if(f==="meme")ok=tag.indexOf("meme")!==-1;
-      if(f==="defi")ok=tag.indexOf("defi")!==-1;
-      if(f==="game")ok=tag.indexOf("game")!==-1;
-      el.style.display=ok?"flex":"none";
-    });
-  };
-});
-})();
-</script>
 </body></html>

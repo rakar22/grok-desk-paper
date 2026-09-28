@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Alfa</title><link rel="stylesheet" href="styles.css"/><link rel="stylesheet" href="extra.css"/></head>
 <body><div class="fx"></div>
-<section id="auth" class="screen auth"><div class="brand"><div class="logo">a</div><h1>ALFA</h1><p>PAPER</p></div>
+<section id="auth" class="screen auth"><div class="brand"><div class="logo">a</div><h1>ALFA</h1><p>VIBE + TAURIC · PAPER</p></div>
 <form id="form" class="card"><label>Usuario</label><input name="user" value="trader"><label>Password</label><input name="pass" type="password" value="desk2026"></form>
 <button class="cta" id="go" type="button">Entrar</button><button class="ghost" id="reg" type="button">Crear cuenta</button><div class="err" id="err"></div></section>
 <section id="app" class="screen app hidden">
@@ -9,9 +9,10 @@
 <main class="scroll"><div class="hero"><span class="k">Patrimonio paper</span><div class="eq" id="equity">-</div>
 <label class="capbox"><span>Capital inicial</span><div class="money big"><b>$</b><input id="capHome" type="number" min="100" step="100"></div></label>
 <div class="presets"><button type="button" class="chip" data-cap="1000">1k</button><button type="button" class="chip" data-cap="5000">5k</button><button type="button" class="chip" data-cap="10000">10k</button><button type="button" class="chip" data-cap="25000">25k</button><button type="button" class="chip" data-cap="50000">50k</button></div>
+<div class="engines"><div class="eng">Vibe alpha</div><div class="eng">Tauric desk</div><div class="eng">TimesFM</div><div class="eng">Jev</div></div>
 <div class="pills"><span id="statusPill">OFF</span><span id="flowPill">24 ops / min</span></div>
 <button type="button" id="powerBtn" class="core off"><span class="core-ring"></span><span class="core-label" id="powerLabel">START</span></button>
-<p class="hintline" id="powerHint">START paper</p></div>
+<p class="hintline" id="powerHint">START paper · Vibe + Tauric</p></div>
 <div class="liveboard"><div class="livehead"><span class="pulse" id="pulse"></span><span id="liveClock">-</span></div>
 <div class="livestats"><div class="ls buy"><span>Compras</span><b id="statBuys">0</b><small id="lastBuy">-</small></div><div class="ls sell"><span>Ventas</span><b id="statSells">0</b><small id="lastSell">-</small></div></div>
 <div class="barwrap"><div class="bar buybar" id="buyBar"></div><div class="bar sellbar" id="sellBar"></div></div>
@@ -29,14 +30,12 @@
 <button type="button" class="ghost" id="connectWallet">Conectar si estas dentro de Phantom</button>
 <button type="button" class="ghost" id="disconnectWallet">Quitar direccion</button>
 <div class="row"><span>Guardada</span><span id="walletPk">-</span></div>
-<div class="err" id="liveErr"></div>
-</div>
+<div class="err" id="liveErr"></div></div>
 <div class="card pad">
 <div class="row"><span>Max ticket USD</span><input id="liveTicket" type="number" min="5" value="25"></div>
 <div class="row"><span>Max perdida / dia %</span><input id="liveDd" type="number" min="1" max="20" value="3"></div>
 <div class="row"><span>Max ops / dia</span><input id="liveOps" type="number" min="1" max="80" value="40"></div>
-<button type="button" class="ghost" id="armLive">Armar LIVE (bloqueado)</button>
-</div>
+<button type="button" class="ghost" id="armLive">Armar LIVE (bloqueado)</button></div>
 <div class="card pad"><h2>Telegram avisos</h2>
 <input id="tgToken" type="password" placeholder="Token BotFather">
 <input id="tgChat" type="text" placeholder="Chat ID">
@@ -45,4 +44,4 @@
 <div class="err" id="tgErr"></div></div></section>
 <section class="pane" data-pane="log"><h2>Tape</h2><div class="list" id="log"></div></section></main>
 <nav class="tabbar"><button class="on" data-pane="market" type="button">Mercado</button><button data-pane="book" type="button">Libro</button><button data-pane="live" type="button">Wallet</button><button data-pane="log" type="button">Tape</button><button id="out" type="button">Salir</button></nav>
-</section><script src="app.js"></script><script src="wallet.js"></script></body></html>
+</section><script src="app.js"></script><script src="research.js"></script><script src="wallet.js"></script></body></html>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/><title>Alfa TON</title><link rel="stylesheet" href="styles.css"/><link rel="stylesheet" href="extra.css"/><script src="https://telegram.org/js/telegram-web-app.js"></script></head>
+<html lang="es"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/><title>Alfa TON</title><link rel="stylesheet" href="styles.css"/><link rel="stylesheet" href="extra.css"/><script src="https://telegram.org/js/telegram-web-app.js"></script><script src="https://unpkg.com/@tonconnect/ui@2.2.0/dist/tonconnect-ui.min.js"></script></head>
 <body>
 <section id="auth" class="screen auth"><div class="brand"><div class="logo">A</div><h1>ALFA</h1><p>TON paper</p></div>
 <form id="form" class="card"><label>Usuario</label><input name="user" value="trader"><label>Password</label><input name="pass" type="password" value="desk2026"></form>
@@ -15,49 +15,45 @@
 <main class="scroll">
 <div class="hero"><div class="eyebrow" id="liveDot">STANDBY</div><span class="k">Patrimonio paper</span><div class="eq" id="equity">-</div>
 <label class="capbox"><span>Capital</span><div class="money big"><b>€</b><input id="capHome" type="number" min="0.5" step="0.5"></div></label>
-<div class="presets"><button type="button" class="chip" data-cap="2">2</button><button type="button" class="chip" data-cap="10">10</button><button type="button" class="chip" data-cap="50">50</button><button type="button" class="chip" data-cap="100">100</button><button type="button" class="chip" data-cap="1000">1k</button></div>
-<div class="pills"><span id="statusPill">OFF</span><span id="flowPill">TON</span></div>
+<div class="presets"><button type="button" class="chip" data-cap="2">2</button><button type="button" class="chip" data-cap="10">10</button><button type="button" class="chip" data-cap="50">50</button><button type="button" class="chip" data-cap="100">100</button></div>
 <div class="startrow">
 <button type="button" id="powerBtn" class="core off"><span class="core-label" id="powerLabel">START</span></button>
 <button type="button" id="refresh" class="ghost scanbtn">Actualizar</button>
 </div>
-<p class="hintline" id="powerHint">El ticket se adapta al capital</p></div>
+<p class="hintline" id="powerHint">Paper TON</p></div>
 <div class="liveboard"><div class="livehead"><span class="pulse" id="pulse"></span><span id="liveClock">-</span></div>
 <div class="livestats"><div class="ls buy"><span>Compras</span><b id="statBuys">0</b><small id="lastBuy">-</small></div><div class="ls sell"><span>Ventas</span><b id="statSells">0</b><small id="lastSell">-</small></div></div>
 <div class="barwrap"><div class="bar buybar" id="buyBar"></div><div class="bar sellbar" id="sellBar"></div></div>
 <div class="livetick" id="liveTick">TON apagado</div></div>
-<div class="charts"><div class="chartbox"><div class="ctitle">Patrimonio</div><canvas id="eqChart" width="360" height="140"></canvas></div><div class="chartbox"><div class="ctitle">Flujo</div><canvas id="flowChart" width="360" height="140"></canvas></div></div>
+<div class="charts"><div class="chartbox"><canvas id="eqChart" width="360" height="140"></canvas></div><div class="chartbox"><canvas id="flowChart" width="360" height="140"></canvas></div></div>
 <section class="pane on" data-pane="market">
 <div class="seg">
 <button type="button" class="segbtn on" data-filter="all">Todos</button>
 <button type="button" class="segbtn" data-filter="meme">Memes</button>
 <button type="button" class="segbtn" data-filter="defi">DeFi</button>
 <button type="button" class="segbtn" data-filter="game">Games</button>
-<button type="button" class="segbtn" data-filter="stable">Stable</button>
 </div>
-<div class="hrow"><h2>Mercado TON</h2></div>
 <div class="list" id="auditList"></div><p class="foot" id="auditMeta"></p></section>
 <section class="pane" data-pane="book">
 <div class="stats"><div><span>Caja</span><b id="cash">-</b></div><div><span>Abiertas</span><b id="npos">0</b></div><div><span>Ciclos</span><b id="runs">0</b></div></div>
-<h2>Posiciones</h2><div class="list" id="pos"></div>
+<div class="list" id="pos"></div>
 <div class="card pad"><div class="row"><span>Capital</span><div class="money"><b>€</b><input id="cap" type="number" min="0.5" step="0.5"></div></div><div class="row muted"><span>Ticket</span><span id="ticket">-</span></div></div></section>
-<section class="pane" data-pane="live"><h2>Telegram Wallet</h2>
+<section class="pane" data-pane="live"><h2>Wallet TON</h2>
 <div class="card pad">
-<p class="hintline" id="tonStatus">Direccion publica TON</p>
-<textarea id="tonPk" class="pkbox" rows="2" placeholder="EQ... o UQ..."></textarea>
-<button type="button" class="cta" id="connectTon">Guardar direccion TON</button>
+<p class="hintline" id="tonStatus">Conecta Telegram Wallet</p>
+<div id="tonConnectBtn"></div>
+<button type="button" class="cta" id="connectTon">Conectar Telegram Wallet</button>
+<textarea id="tonPk" class="pkbox" rows="2" placeholder="O pega EQ... / UQ..."></textarea>
 <div class="row"><span>TON</span><span id="tonAddr">-</span></div>
 <div class="err" id="tonErr"></div></div>
-<div class="card pad">
-<button type="button" class="ghost" id="armLive">LIVE bloqueado</button>
-<div class="err" id="liveErr"></div></div>
+<div class="card pad"><button type="button" class="ghost" id="armLive">LIVE bloqueado</button><div class="err" id="liveErr"></div></div>
 <div class="card pad"><h2>Avisos</h2>
 <input id="tgToken" type="password" placeholder="Token BotFather">
 <input id="tgChat" type="text" placeholder="Chat ID">
 <button type="button" class="cta" id="saveTg">Guardar</button>
 <button type="button" class="ghost" id="testTg">Probar</button>
 <div class="err" id="tgErr"></div></div></section>
-<section class="pane" data-pane="log"><h2>Tape</h2><div class="list" id="log"></div></section>
+<section class="pane" data-pane="log"><div class="list" id="log"></div></section>
 </main></section>
 <script src="app.js"></script><script src="patch.js"></script><script src="research.js"></script><script src="wallet.js"></script><script src="telegram.js"></script>
 </body></html>

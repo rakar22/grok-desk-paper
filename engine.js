@@ -1,54 +1,42 @@
 (function(){
 var KEY="alfa_desk_v1";
 var timer=null;
-var PAIRS=[
-  {from:"TON",to:"USDT"},
-  {from:"TON",to:"NOT"},
-  {from:"TON",to:"DOGS"},
-  {from:"USDT",to:"TON"},
-  {from:"TON",to:"HMSTR"},
-  {from:"TON",to:"CATI"}
-];
+var TOKS=["USDT","STON","NOT","MAJOR","FRT","tsTON"];
 function load(){try{return JSON.parse(localStorage.getItem(KEY)||"null")}catch(e){return null}}
 function save(b){localStorage.setItem(KEY,JSON.stringify(b))}
 function init(){
   var b=load();
   if(!b||typeof b!=="object")b={capital:5,cash:5,pos:[],log:[],signals:[],bot:{on:false,runs:0,buys:0,sells:0}};
   if(!b.bot)b.bot={on:false,runs:0,buys:0,sells:0};
-  if(!Array.isArray(b.pos))b.pos=[];
-  if(!Array.isArray(b.log))b.log=[];
   if(!Array.isArray(b.signals))b.signals=[];
+  if(!Array.isArray(b.pos))b.pos=[];
   if(typeof b.capital!=="number")b.capital=5;
   if(typeof b.cash!=="number")b.cash=b.capital;
   save(b);return b;
 }
 function euro(n){return (Number(n)||0).toLocaleString("es-ES",{minimumFractionDigits:2,maximumFractionDigits:2})+" €"}
 function makeSig(){
-  var b=init();
-  var p=PAIRS[Math.floor(Math.random()*PAIRS.length)];
-  var amt=Math.max(0.5,Math.round(b.capital*0.08*100)/100);
-  var sl=8;
-  var tp=12;
-  var hold=25;
+  var tok=TOKS[Math.floor(Math.random()*TOKS.length)];
+  var gram=0.2;
+  var sl=8,tp=12,hold=25;
   var txt=[
-    "DEDUST @dedustBot",
-    "ENTRADA: "+p.from+" -> "+p.to,
-    "CANTIDAD: "+amt+" "+p.from,
-    "STOP LOSS: -"+sl+"%  (cierra ya)",
-    "TAKE PROFIT: +"+tp+"%  (cierra ya)",
-    "CIERRE TIEMPO: "+hold+" min si no llega TP/SL",
-    "CIERRE: swap inverso "+p.to+" -> "+p.from,
-    "Alfa no firma. Senal paper."
+    "X1000",
+    "https://x1000.finance",
+    "TAB: Tokens",
+    "BUSCA: "+tok,
+    "ACCION: Buy",
+    "CANTIDAD: "+gram+" GRAM",
+    "STOP LOSS: -"+sl+"% -> Sell",
+    "TAKE PROFIT: +"+tp+"% -> Sell",
+    "TIEMPO: "+hold+" min -> Sell",
+    "Alfa no firma. Revisa impacto."
   ].join("\n");
-  var s={t:Date.now(),from:p.from,to:p.to,amt:amt,sl:sl,tp:tp,hold:hold,txt:txt,status:"open"};
-  b.signals.unshift(s);b.signals=b.signals.slice(0,20);save(b);return s;
+  var s={t:Date.now(),tok:tok,gram:gram,sl:sl,tp:tp,hold:hold,txt:txt,status:"open",from:"GRAM",to:tok,amt:gram};
+  var b=init();b.signals.unshift(s);b.signals=b.signals.slice(0,20);save(b);return s;
 }
 function expireSigs(){
-  var b=init();
-  var now=Date.now();
-  b.signals.forEach(function(s){
-    if(s.status==="open" && now-s.t>25*60*1000)s.status="timeout-cierra";
-  });
+  var b=init();var now=Date.now();
+  b.signals.forEach(function(s){if(s.status==="open"&&now-s.t>25*60*1000)s.status="cierra-sell"});
   save(b);
 }
 function paintSig(){
@@ -59,18 +47,11 @@ function paintSig(){
   var s=b.signals[0];
   if(now){
     if(!s)now.innerHTML="<p class='hintline'>Pulsa Nueva señal</p>";
-    else now.innerHTML="<b>"+s.from+" → "+s.to+"</b>"+
-      "<p>"+s.amt+" "+s.from+"</p>"+
-      "<p>SL -"+s.sl+"% · TP +"+s.tp+"% · "+s.hold+" min</p>"+
-      "<p class='hintline'>"+(s.status||"open")+"</p>"+
-      "<pre style='white-space:pre-wrap;font-size:13px'>"+s.txt+"</pre>"+
-      "<button type='button' class='cta' id='copySig'>Copiar</button>";
+    else now.innerHTML="<b>x1000 Buy "+s.tok+"</b><p>"+s.gram+" GRAM</p><p>SL -"+s.sl+"% · TP +"+s.tp+"% · "+s.hold+" min</p><pre id='sigTxt' style='white-space:pre-wrap;font-size:13px'>"+s.txt+"</pre><button type='button' class='cta' id='copySig'>Copiar</button><a class='cta' href='https://x1000.finance' target='_blank' rel='noopener'>Abrir x1000</a>";
     var c=document.getElementById("copySig");
     if(c)c.onclick=function(){navigator.clipboard.writeText(s.txt).then(function(){c.textContent="Copiado"})};
   }
-  if(list)list.innerHTML=b.signals.map(function(x){
-    return "<div class='token'><b>"+x.from+"→"+x.to+"</b><span>SL -"+x.sl+"% / TP +"+x.tp+"% · "+x.status+"</span></div>";
-  }).join("");
+  if(list)list.innerHTML=b.signals.map(function(x){return "<div class='token'><b>Buy "+x.tok+"</b><span>"+x.gram+" GRAM · "+x.status+"</span></div>"}).join("");
 }
 function paint(){
   var b=init();
@@ -90,34 +71,19 @@ function paint(){
   if(el("ticket"))el("ticket").textContent=euro(Math.max(0.2,b.capital*0.08));
   var cap=el("capHome");if(cap&&document.activeElement!==cap)cap.value=b.capital;
   var cap2=el("cap");if(cap2&&document.activeElement!==cap2)cap2.value=b.capital;
-  var pos=el("pos");
-  if(pos)pos.innerHTML=(b.pos||[]).map(function(p){return "<div class='token'><b>"+p.sym+"</b><span>"+euro((p.qty||0)*(p.px||0))+"</span></div>"}).join("")||"<p class='hintline'>Sin posiciones</p>";
   paintSig();
 }
 function cycle(){
-  var b=init();
-  if(!b.bot.on)return;
+  var b=init();if(!b.bot.on)return;
   var ticket=Math.max(0.15,Math.min(b.cash*0.2,b.capital*0.1));
-  var tok=["TON","USDT","NOT","DOGS"];
-  var sym=tok[Math.floor(Math.random()*tok.length)];
-  var px=0.1+Math.random()*2;
-  if(b.cash>=ticket){b.cash-=ticket;b.pos.push({sym:sym,qty:ticket/px,px:px,sl:px*0.92,tp:px*1.12});b.bot.buys++;var lb=document.getElementById("lastBuy");if(lb)lb.textContent=sym}
-  b.pos=b.pos.filter(function(p){
-    var now=p.px*(0.94+Math.random()*0.14);
-    if(now<=p.sl||now>=p.tp){
-      b.cash+=p.qty*now;b.bot.sells++;
-      var ls=document.getElementById("lastSell");if(ls)ls.textContent=p.sym+(now<=p.sl?" SL":" TP");
-      return false;
-    }
-    return true;
-  });
-  b.bot.runs++;
-  if(b.bot.runs%3===0)makeSig();
-  save(b);paint();
+  var tok=TOKS[Math.floor(Math.random()*TOKS.length)];
+  if(b.cash>=ticket){b.cash-=ticket;b.pos.push({sym:tok,qty:1,px:ticket,sl:ticket*0.92,tp:ticket*1.12});b.bot.buys++}
+  b.pos=b.pos.filter(function(p){var n=p.px*(0.94+Math.random()*0.14);if(n<=p.sl||n>=p.tp){b.cash+=n;b.bot.sells++;return false}return true});
+  b.bot.runs++;if(b.bot.runs%2===0)makeSig();save(b);paint();
 }
-function start(){if(timer)clearInterval(timer);timer=setInterval(cycle,4000);cycle()}
+function start(){if(timer)clearInterval(timer);timer=setInterval(cycle,5000);cycle()}
 function stop(){if(timer){clearInterval(timer);timer=null}}
-function toggle(){var b=init();b.bot.on=!b.bot.on;if(!b.bot.on){b.pos=[];b.log=[];b.bot.runs=0;b.bot.buys=0;b.bot.sells=0;b.cash=b.capital;stop()}save(b);paint();if(b.bot.on){makeSig();start()}}
+function toggle(){var b=init();b.bot.on=!b.bot.on;if(!b.bot.on){b.pos=[];b.bot.runs=0;b.bot.buys=0;b.bot.sells=0;b.cash=b.capital;stop()}save(b);paint();if(b.bot.on){makeSig();start()}}
 function setCap(n){n=Math.max(0.5,Number(n)||0.5);var b=init();b.capital=n;if(!b.bot.on)b.cash=n;save(b);paint()}
 function bind(){
   var btn=document.getElementById("powerBtn");if(btn)btn.onclick=function(e){e.preventDefault();toggle()};

@@ -2,7 +2,12 @@
 <html lang="es"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/><title>Alfa TON</title><link rel="stylesheet" href="styles.css"/><link rel="stylesheet" href="extra.css"/><script src="https://telegram.org/js/telegram-web-app.js"></script><script src="https://unpkg.com/@tonconnect/ui@2.2.0/dist/tonconnect-ui.min.js"></script></head>
 <body>
 <button id="refresh2" type="button" hidden></button>
-<section id="auth" class="screen auth hidden"></section>
+<button id="go" type="button" hidden></button>
+<button id="reg" type="button" hidden></button>
+<button id="out" type="button" hidden></button>
+<form id="form" hidden><input name="user" value="trader"><input name="pass" value="desk2026"></form>
+<div id="err" hidden></div>
+<section id="auth" class="hidden"></section>
 <section id="app" class="screen app">
 <nav class="tabbar topnav">
 <button class="on" data-pane="market" type="button">Mercado</button>
@@ -16,7 +21,7 @@
 <label class="capbox"><span>Capital</span><div class="money big"><b>€</b><input id="capHome" type="number" min="0.5" step="0.5" inputmode="decimal"></div></label>
 <div class="presets"><button type="button" class="chip" data-cap="2">2</button><button type="button" class="chip" data-cap="10">10</button><button type="button" class="chip" data-cap="50">50</button><button type="button" class="chip" data-cap="100">100</button></div>
 <div class="startrow"><button type="button" id="powerBtn" class="core off"><span class="core-label" id="powerLabel">START</span></button><button type="button" id="refresh" class="ghost scanbtn">Actualizar</button></div>
-<p class="hintline" id="powerHint">START arranca el paper</p></div>
+<p class="hintline" id="powerHint">START arranca compras y ventas paper</p></div>
 <div class="liveboard"><div class="livehead"><span class="pulse" id="pulse"></span><span id="liveClock">-</span></div>
 <div class="livestats"><div class="ls buy"><span>Compras</span><b id="statBuys">0</b><small id="lastBuy">-</small></div><div class="ls sell"><span>Ventas</span><b id="statSells">0</b><small id="lastSell">-</small></div></div>
 <div class="barwrap"><div class="bar buybar" id="buyBar"></div><div class="bar sellbar" id="sellBar"></div></div>

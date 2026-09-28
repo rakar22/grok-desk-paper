@@ -10,7 +10,7 @@
 </head>
 <body>
   <section id="auth" class="screen auth">
-    <div class="brand"><div class="logo">α</div><h1>Alfa</h1><p>Paper desk · Solana memecoins</p></div>
+    <div class="brand"><div class="logo">α</div><h1>Alfa</h1><p>Paper · todos los mercados cripto</p></div>
     <form id="form" class="card">
       <label>Usuario<input name="user" value="trader" autocomplete="username"></label>
       <label>Password<input name="pass" type="password" value="desk2026" autocomplete="current-password"></label>
@@ -24,8 +24,8 @@
       <button type="button" id="refresh" class="iconbtn">↻</button></header>
     <main class="scroll">
       <div class="hero"><span class="k">Patrimonio</span><div class="eq" id="equity">—</div>
-        <div class="pills"><span id="statusPill">Apagado</span><span id="flowPill">0 compras · 0 ventas</span></div>
-        <label class="power"><div><b id="powerLabel">Alfa</b><small id="powerHint">Compra y vende memecoins en bucle</small></div>
+        <div class="pills"><span id="statusPill">Apagado</span><span id="flowPill">10 compra / 10 venta · min</span></div>
+        <label class="power"><div><b id="powerLabel">Alfa</b><small id="powerHint">10 compras y 10 ventas por minuto</small></div>
           <span class="sw"><input type="checkbox" id="power"><i></i></span></label></div>
       <div class="liveboard">
         <div class="livehead"><span class="pulse" id="pulse"></span><span id="liveClock">—</span></div>
@@ -34,15 +34,23 @@
           <div class="ls sell"><span>Ventas</span><b id="statSells">0</b><small id="lastSell">—</small></div>
         </div>
         <div class="barwrap"><div class="bar buybar" id="buyBar"></div><div class="bar sellbar" id="sellBar"></div></div>
-        <div class="livetick" id="liveTick">Sin operaciones todavía</div>
+        <div class="livetick" id="liveTick">Sin operaciones</div>
       </div>
-      <section class="pane on" data-pane="market"><div class="hrow"><h2>Memecoins Solana</h2><button type="button" id="refresh2" class="mini">Actualizar</button></div>
-        <div class="list" id="auditList"></div><p class="foot" id="auditMeta">Pulsa actualizar.</p></section>
-      <section class="pane" data-pane="book"><div class="stats"><div><span>Caja</span><b id="cash">—</b></div><div><span>Abiertas</span><b id="npos">0</b></div><div><span>Ciclos</span><b id="runs">0</b></div></div>
+      <div class="charts">
+        <div class="chartbox"><div class="ctitle">Patrimonio</div><canvas id="eqChart" width="360" height="140"></canvas></div>
+        <div class="chartbox"><div class="ctitle">Compras vs ventas</div><canvas id="flowChart" width="360" height="140"></canvas></div>
+      </div>
+      <section class="pane on" data-pane="market">
+        <div class="hrow"><h2>Mercados cripto</h2><button type="button" id="refresh2" class="mini">Actualizar</button></div>
+        <div class="list" id="auditList"></div><p class="foot" id="auditMeta">BTC, ETH, SOL y más.</p>
+      </section>
+      <section class="pane" data-pane="book">
+        <div class="stats"><div><span>Caja</span><b id="cash">—</b></div><div><span>Abiertas</span><b id="npos">0</b></div><div><span>Ciclos</span><b id="runs">0</b></div></div>
         <h2>Posiciones</h2><div class="list" id="pos"></div>
         <div class="card pad"><div class="row"><span>Capital paper</span><div class="money"><b>$</b><input id="cap" type="number" min="100" step="50" inputmode="decimal"></div></div>
-          <div class="row muted"><span>Ticket</span><span id="ticket">—</span></div></div></section>
-      <section class="pane" data-pane="log"><h2>Flujo compra / venta</h2><div class="list" id="log"></div></section>
+          <div class="row muted"><span>Ticket</span><span id="ticket">—</span></div></div>
+      </section>
+      <section class="pane" data-pane="log"><h2>Flujo</h2><div class="list" id="log"></div></section>
     </main>
     <nav class="tabbar">
       <button class="on" data-pane="market" type="button">Mercado</button>

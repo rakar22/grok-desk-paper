@@ -1,0 +1,4 @@
+function applyCap(n){var b=book();n=Math.max(100,Number(n)||b.capital);b.capital=n;if(!b.pos.length||!b.bot.on){b.cash=n;b.equity=n}save(b);render();var h=document.getElementById("capHome");if(h)h.value=b.capital;var c=document.getElementById("cap");if(c)c.value=b.capital}
+function bindCap(){var h=document.getElementById("capHome");if(h){h.onchange=function(){applyCap(h.value)};h.onblur=function(){applyCap(h.value)}}document.querySelectorAll(".chip[data-cap]").forEach(function(btn){btn.onclick=function(){applyCap(btn.getAttribute("data-cap"))}});var c=document.getElementById("cap");if(c){c.onchange=function(){applyCap(c.value)};c.onblur=function(){applyCap(c.value)}}}
+bindCap();
+setInterval(function(){var b=session()&&book();var h=document.getElementById("capHome");if(b&&h&&document.activeElement!==h)h.value=b.capital},1500);

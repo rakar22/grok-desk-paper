@@ -1,0 +1,12 @@
+function liveCfg(){return JSON.parse(localStorage.getItem("alfa_live")||"{\"pk\":\"\",\"ticket\":25,\"dd\":3,\"ops\":40,\"armed\":false}")}
+function saveLive(c){localStorage.setItem("alfa_live",JSON.stringify(c))}
+function shortPk(pk){if(!pk)return "-";return pk.slice(0,4)+"..."+pk.slice(-4)}
+function renderWallet(){var c=liveCfg();var st=document.getElementById("walletStatus");var pk=document.getElementById("walletPk");if(!st)return;st.textContent=c.pk?("Wallet lista · "+shortPk(c.pk)+" · LIVE LOCK"):"Sin wallet · LIVE LOCK";if(pk)pk.textContent=c.pk||"-";var t=document.getElementById("liveTicket");if(t)t.value=c.ticket;var d=document.getElementById("liveDd");if(d)d.value=c.dd;var o=document.getElementById("liveOps");if(o)o.value=c.ops}
+async function connectPhantom(){var err=document.getElementById("liveErr");try{var provider=window.solana||(window.phantom&&window.phantom.solana);if(!provider||!provider.isPhantom){if(err)err.textContent="Instala Phantom o abre esta pagina en Phantom.";window.open("https://phantom.app/","_blank");return}var res=await provider.connect();var pk=String(res.publicKey);var c=liveCfg();c.pk=pk;c.armed=false;saveLive(c);renderWallet();if(err)err.textContent="Pubkey guardada. LIVE sigue bloqueado. El bot paper usa este id."}catch(e){if(err)err.textContent=e.message||"Conexion cancelada"}}
+function disconnectWallet(){var c=liveCfg();c.pk="";c.armed=false;saveLive(c);renderWallet();try{if(window.solana&&window.solana.disconnect)window.solana.disconnect()}catch(e){}}
+function persistLimits(){var c=liveCfg();c.ticket=Math.max(5,Number(document.getElementById("liveTicket").value)||25);c.dd=Math.max(1,Math.min(20,Number(document.getElementById("liveDd").value)||3));c.ops=Math.max(1,Math.min(80,Number(document.getElementById("liveOps").value)||40));saveLive(c)}
+document.getElementById("connectWallet").onclick=connectPhantom;
+document.getElementById("disconnectWallet").onclick=disconnectWallet;
+["liveTicket","liveDd","liveOps"].forEach(function(id){var el=document.getElementById(id);if(!el)return;el.onchange=persistLimits;el.onblur=persistLimits});
+document.getElementById("armLive").onclick=function(){var err=document.getElementById("liveErr");var c=liveCfg();if(!c.pk){err.textContent="Conecta Phantom primero.";return}err.textContent="LIVE bloqueado. Automatico real = hot wallet en servidor + Jupiter. No pegues la seed aqui."};
+renderWallet();

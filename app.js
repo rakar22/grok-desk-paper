@@ -62,7 +62,7 @@ if(!s)return;
 const b=book();mark(b);
 const dd=((b.peak-b.equity)/Math.max(b.peak,1))*100;
 document.getElementById("equity").textContent=money(b.equity);
-document.getElementById("pnlLine").textContent=b.bot.on?(b.bot.msg+(dd>0.2?" · DD "+pct(-Math.abs(dd))"":"")):"Paper · sin dinero real";
+document.getElementById("pnlLine").textContent=b.bot.on?(b.bot.msg+(dd>0.2?" · DD "+pct(-Math.abs(dd)):"")):"Paper · sin dinero real";
 document.getElementById("power").checked=!!b.bot.on;
 document.getElementById("powerLabel").textContent=b.bot.on?"Alfa encendido":"Alfa apagado";
 document.getElementById("powerHint").textContent=b.bot.on?"Revisa cada 10 min":"5-10 compras pequenas al encender";

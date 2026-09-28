@@ -2,80 +2,87 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="theme-color" content="#f2f2f7" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#0b0b0f" />
   <title>Alfa</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <section id="auth" class="wrap auth">
-    <div class="center">
-      <div class="logo">a</div>
+  <section id="auth" class="screen auth">
+    <div class="brand">
+      <div class="logo">α</div>
       <h1>Alfa</h1>
-      <p>Paper trading en Solana.<br>La sesion se guarda en este navegador.</p>
+      <p>Paper desk · Solana memecoins</p>
     </div>
-    <form id="form" class="sheet">
-      <div class="cell"><label>Usuario<input name="user" value="trader" autocomplete="username"></label></div>
-      <div class="cell"><label>Password<input name="pass" type="password" value="desk2026" autocomplete="current-password"></label></div>
+    <form id="form" class="card">
+      <label>Usuario<input name="user" value="trader" autocomplete="username"></label>
+      <label>Password<input name="pass" type="password" value="desk2026" autocomplete="current-password"></label>
     </form>
-    <button class="btn" id="go" type="button">Continuar</button>
-    <button class="btn ghost" id="reg" type="button">Crear cuenta</button>
+    <button class="cta" id="go" type="button">Entrar</button>
+    <button class="link" id="reg" type="button">Crear cuenta</button>
     <div class="err" id="err"></div>
   </section>
-  <section id="app" class="wrap hidden">
-    <div class="nav">
+  <section id="app" class="screen app hidden">
+    <header class="topbar">
       <div>
-        <div class="sub">Solana paper</div>
-        <h1>Alfa</h1>
+        <div class="eyebrow" id="liveDot">PAPER</div>
+        <strong>Alfa</strong>
       </div>
-      <button type="button" id="out">Salir</button>
-    </div>
-    <div class="hero">
-      <div class="k">Patrimonio</div>
-      <div class="eq" id="equity">-</div>
-      <p id="pnlLine">Bot apagado</p>
-      <label class="power">
-        <div>
-          <b id="powerLabel">Alfa</b>
-          <span class="note" id="powerHint">5-10 compras pequenas al encender</span>
+      <button type="button" id="refresh" class="iconbtn" aria-label="Actualizar">↻</button>
+    </header>
+    <main class="scroll" id="scroll">
+      <div class="hero">
+        <span class="k">Patrimonio</span>
+        <div class="eq" id="equity">—</div>
+        <div class="pills">
+          <span id="statusPill">Apagado</span>
+          <span id="flowPill">0 compras · 0 ventas</span>
         </div>
-        <span class="sw"><input type="checkbox" id="power"><i></i></span>
-      </label>
-    </div>
-    <div class="block"><h2>Capital</h2></div>
-    <div class="group">
-      <div class="row">
-        <div class="l">Dinero de Alfa</div>
-        <div class="money"><b>$</b><input id="cap" type="number" min="100" step="50" inputmode="decimal"></div>
+        <label class="power">
+          <div>
+            <b id="powerLabel">Alfa</b>
+            <small id="powerHint">Compra y vende memecoins en bucle</small>
+          </div>
+          <span class="sw"><input type="checkbox" id="power"><i></i></span>
+        </label>
       </div>
-      <div class="row">
-        <div class="l">Ticket medio</div>
-        <div class="r" id="ticket">-</div>
-      </div>
-    </div>
-    <div class="hint">Edita el capital y pulsa fuera. Solo paper.</div>
-    <div class="seg" id="seg">
-      <button class="on" data-v="audit" type="button">Auditoria</button>
-      <button data-v="book" type="button">Libro</button>
-      <button data-v="log" type="button">Actividad</button>
-    </div>
-    <div id="panel-audit">
-      <div class="block"><h2>Red Solana</h2></div>
-      <div class="group" id="auditList"></div>
-      <div class="hint" id="auditMeta">Estudiando Solana.</div>
-    </div>
-    <div id="panel-book" class="hidden">
-      <div class="kpis">
-        <div class="kpi"><div class="k">Caja</div><div class="v" id="cash">-</div></div>
-        <div class="kpi"><div class="k">Abiertas</div><div class="v" id="npos">0</div></div>
-        <div class="kpi"><div class="k">Ciclos</div><div class="v" id="runs">0</div></div>
-      </div>
-      <div class="group" id="pos"></div>
-    </div>
-    <div id="panel-log" class="hidden">
-      <div class="group" id="log"></div>
-    </div>
+      <section class="pane on" data-pane="market">
+        <div class="hrow">
+          <h2>Memecoins Solana</h2>
+          <button type="button" id="refresh2" class="mini">Actualizar</button>
+        </div>
+        <div class="list" id="auditList"></div>
+        <p class="foot" id="auditMeta">Pulsa actualizar.</p>
+      </section>
+      <section class="pane" data-pane="book">
+        <div class="stats">
+          <div><span>Caja</span><b id="cash">—</b></div>
+          <div><span>Abiertas</span><b id="npos">0</b></div>
+          <div><span>Ciclos</span><b id="runs">0</b></div>
+        </div>
+        <h2>Posiciones</h2>
+        <div class="list" id="pos"></div>
+        <div class="card pad">
+          <div class="row">
+            <span>Capital paper</span>
+            <div class="money"><b>$</b><input id="cap" type="number" min="100" step="50" inputmode="decimal"></div>
+          </div>
+          <div class="row muted"><span>Ticket</span><span id="ticket">—</span></div>
+        </div>
+      </section>
+      <section class="pane" data-pane="log">
+        <h2>Flujo compra / venta</h2>
+        <div class="list" id="log"></div>
+      </section>
+    </main>
+    <nav class="tabbar">
+      <button class="on" data-pane="market" type="button">Mercado</button>
+      <button data-pane="book" type="button">Libro</button>
+      <button data-pane="log" type="button">Actividad</button>
+      <button id="out" type="button">Salir</button>
+    </nav>
   </section>
   <script src="app.js"></script>
 </body>

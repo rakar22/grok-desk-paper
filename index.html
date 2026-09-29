@@ -25,13 +25,19 @@
 <button type="button" class="chip on" id="modeDemo">Demo</button>
 <button type="button" class="chip" id="modeReal">Dinero real</button>
 </div>
-<label class="capbox"><span>Capital demo</span>
-<div class="money big"><b>€</b><input id="capHome" type="number" min="10" step="10" value="100"></div></label>
+<label class="capbox"><span>Capital demo (min 2€)</span>
+<div class="money big"><b>€</b><input id="capHome" type="number" min="2" step="0.5" value="2"></div></label>
+<div class="presets">
+<button type="button" class="chip" data-cap="2">2</button>
+<button type="button" class="chip" data-cap="10">10</button>
+<button type="button" class="chip" data-cap="50">50</button>
+<button type="button" class="chip" data-cap="100">100</button>
+</div>
 <div class="startrow">
 <button type="button" id="powerBtn" class="core off"><span id="powerLabel">START</span></button>
 <button type="button" id="refresh" class="ghost">Actualizar</button>
 </div>
-<p class="hintline" id="hint">START en Demo opera paper con precios Kraken. Real exige servidor.</p>
+<p class="hintline" id="hint">Demo: 5–20 ops / 5s. Real bloqueado.</p>
 </div>
 <div class="liveboard">
 <div class="livestats">
@@ -53,10 +59,8 @@
 </section>
 <section class="pane" data-pane="live">
 <h2>Kraken</h2>
-<p class="hintline" id="krakenStatus">Demo usa ticker público. Real = LIVE LOCK.</p>
+<p class="hintline" id="krakenStatus">Demo ticker público. Real = LIVE LOCK.</p>
 <div class="card pad">
-<p>API pública: api.kraken.com</p>
-<p>Bot real: server/kraken_bot.py + keys en variables de entorno.</p>
 <p>No pegues API Secret aquí.</p>
 <a class="cta" href="https://pro.kraken.com/app/settings/api" target="_blank" rel="noopener">Crear API key (Pro)</a>
 </div>

@@ -1,12 +1,30 @@
-# Alfa desk (paper)
+# Alfa Kraken
 
-Local paper desk. LIVE stays locked in the browser.
+Mini App: **demo paper** with public Kraken tickers.
+Real orders: **server only** (`server/kraken_bot.py`). LIVE LOCK in the browser.
 
-## Research engines (inspired, not the full repos)
-- HKUDS/Vibe-Trading https://github.com/HKUDS/Vibe-Trading — momentum + mean-reversion alpha score (Vibe 0-100).
-- TauricResearch/TradingAgents https://github.com/TauricResearch/TradingAgents — analyst / bull-bear / trader / risk / PM vote.
+## Demo (works now)
 
-These are compact local stand-ins. They do not run the original LLM graphs or place broker orders.
+Open the Mini App → **Demo** → START.
+Prices from `GET https://api.kraken.com/0/public/Ticker`.
 
-## Other
-Phantom pubkey only. Telegram = alerts bot. HOT_WALLET_SECRET only on a server you control.
+## Real money (VPS)
+
+1. Kraken Pro → Settings → API → Create key  
+   Permissions: Query Funds, Query Open/Closed Orders, Create & Modify Orders, Cancel.  
+   **No Withdraw.** IP whitelist the VPS.
+2. On the VPS:
+
+```bash
+export KRAKEN_API_KEY=...
+export KRAKEN_API_SECRET=...
+export KRAKEN_PAIR=XBTUSD
+export KRAKEN_VOLUME=0.0001
+python3 server/kraken_bot.py          # dry run
+export KRAKEN_LIVE=1
+python3 server/kraken_bot.py          # one market buy — review first
+```
+
+Spot UAT is on request from Kraken. Futures sandbox: https://demo-futures.kraken.com
+
+Do not paste secrets into Telegram or this frontend.

@@ -1,13 +1,12 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/><title>Alfa TON</title><link rel="stylesheet" href="styles.css"/><link rel="stylesheet" href="extra.css"/><script src="https://telegram.org/js/telegram-web-app.js"></script><script src="https://unpkg.com/@tonconnect/ui@2.2.0/dist/tonconnect-ui.min.js"></script></head>
 <body>
-<button id="refresh2" hidden></button><button id="go" hidden></button><button id="reg" hidden></button><button id="out" hidden></button>
-<form id="form" hidden></form><div id="err" hidden></div><section id="auth" class="hidden"></section>
+<section id="auth" class="hidden"></section>
 <section id="app" class="screen app">
 <nav class="tabbar topnav">
 <button class="on" data-pane="market" type="button">Mercado</button>
-<button data-pane="swap" type="button">Swap</button>
 <button data-pane="sig" type="button">Señales</button>
+<button data-pane="agent" type="button">Agente</button>
 <button data-pane="live" type="button">Wallet</button>
 </nav>
 <main class="scroll">
@@ -16,25 +15,8 @@
 <label class="capbox"><span>Capital</span><div class="money big"><b>€</b><input id="capHome" type="number" min="0.5" step="0.5"></div></label>
 <div class="presets"><button type="button" class="chip" data-cap="2">2</button><button type="button" class="chip" data-cap="10">10</button><button type="button" class="chip" data-cap="50">50</button><button type="button" class="chip" data-cap="100">100</button></div>
 <div class="startrow"><button type="button" id="powerBtn" class="core off"><span class="core-label" id="powerLabel">START</span></button><button type="button" id="refresh" class="ghost scanbtn">Actualizar</button></div>
-<p class="hintline">START paper. Swap = firmas en DEX.</p></div>
+<p class="hintline">START paper. Agente = bankroll, no gasta TON.</p></div>
 <div class="liveboard"><div class="livestats"><div class="ls buy"><span>Compras</span><b id="statBuys">0</b></div><div class="ls sell"><span>Ventas</span><b id="statSells">0</b></div></div><div class="livetick" id="liveTick">Apagado</div></div>
-</section>
-<section class="pane" data-pane="swap">
-<h2>Swap TON</h2>
-<p class="hintline">Alfa no envía TON sola. Abre el DEX y firmas.</p>
-<div class="card pad">
-<label>Pagas</label>
-<select id="swapFrom"><option>TON</option><option>USDT</option></select>
-<label>Recibes</label>
-<select id="swapTo"><option>USDT</option><option>STON</option><option>NOT</option><option>TON</option></select>
-<label>Cantidad</label>
-<input id="swapAmt" type="number" min="0.05" step="0.05" value="0.2">
-<p class="hintline" id="swapHint">0.2 TON / GRAM</p>
-<button type="button" class="cta" id="swapSton">Firmar en STON.fi</button>
-<button type="button" class="cta" id="swapDedust">Firmar en DeDust</button>
-<button type="button" class="ghost" id="swapX1000">Firmar en x1000</button>
-<p class="err" id="swapErr"></p>
-</div>
 </section>
 <section class="pane" data-pane="sig">
 <h2>Señales</h2>
@@ -42,13 +24,25 @@
 <div class="card pad" id="sigNow"></div>
 <div class="list" id="sigList"></div>
 </section>
+<section class="pane" data-pane="agent">
+<h2>Agente maestro</h2>
+<p class="hintline">Reglas de bankroll. No opera sola. Tú firmas en x1000.</p>
+<div class="card pad">
+<label>GRAM en wallet</label>
+<input id="agentGram" type="number" min="0.1" step="0.05" value="1.12">
+<label>Riesgo por trade %</label>
+<input id="agentRisk" type="number" min="2" max="20" value="15">
+<button type="button" class="cta" id="agentRun">Calcular bankroll</button>
+</div>
+<div class="card pad" id="agentOut"></div>
+</section>
 <section class="pane" data-pane="live">
 <h2>Wallet</h2>
-<div class="card pad"><p id="tonStatus">Conecta para firmar</p><div id="tonConnectBtn"></div>
+<div class="card pad"><p id="tonStatus">Conecta</p><div id="tonConnectBtn"></div>
 <button type="button" class="cta" id="connectTon">Conectar</button>
 <textarea id="tonPk" class="pkbox" rows="2" placeholder="EQ / UQ"></textarea>
 <span id="tonAddr">-</span></div>
 </section>
 </main></section>
-<script src="app.js"></script><script src="patch.js"></script><script src="research.js"></script><script src="wallet.js"></script><script src="telegram.js"></script><script src="open.js"></script><script src="engine.js"></script><script src="swap.js"></script>
+<script src="app.js"></script><script src="patch.js"></script><script src="research.js"></script><script src="wallet.js"></script><script src="telegram.js"></script><script src="open.js"></script><script src="swap.js"></script><script src="engine.js"></script><script src="agent.js"></script>
 </body></html>
